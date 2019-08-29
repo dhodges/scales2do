@@ -1,4 +1,7 @@
 ^{:watch-dirs ["test" "src"]
   :css-dirs ["resources/public/css"]
   :auto-testing true}
-{:main scales2do.core}
+{:main scales2do.core
+ :optimizations :none
+ :pretty-print true
+ :source-map true}
