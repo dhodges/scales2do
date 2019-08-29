@@ -2,5 +2,7 @@
 * TODO labels for "major" and "minor"
 perhaps curved inside/outside their respective circles?
 
+https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Texts#textPath
+https://stackoverflow.com/questions/5736398/how-to-calculate-the-svg-path-for-an-arc-of-a-circle
 
 * TODO visual toggles for major/minor/fifths/fourths
