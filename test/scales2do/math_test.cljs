@@ -14,5 +14,7 @@
 
   (is (= {:x 148 :y   6} (rotate {:x 200 :y   0 :angle -15})))
   (is (= {:x 251 :y   6} (rotate {:x 200 :y   0 :angle  15})))
+  (is (= {:x 120 :y  61} (rotate {:x 200 :y  40 :angle -30})))
+  (is (= {:x 150 :y 113} (rotate {:x 200 :y 100 :angle -30})))
   (is (= {:x 482 :y 200} (rotate {:x 400 :y 400 :angle -45})))
 )
