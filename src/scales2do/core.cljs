@@ -1,7 +1,7 @@
 (ns ^:figwheel-hooks scales2do.core
   (:require
    [reagent.core :as reagent :refer [atom]]
-   [scales2do.components :as comp]
+   [scales2do.circle-component :as comp]
    [scales2do.dom :as dom]))
 
 (defn mount [component el]

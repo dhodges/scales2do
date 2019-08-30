@@ -1,4 +1,4 @@
-(ns ^:figwheel-hooks scales2do.components
+(ns ^:figwheel-hooks scales2do.circle-component
   (:require
    [scales2do.scales :as scales]
    [scales2do.math :refer [rotate-pt-around-center]]
