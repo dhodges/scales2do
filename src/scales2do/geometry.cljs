@@ -29,8 +29,8 @@
   "describe an arc, suitable for use in an svg path,
 given a center pt, radius, start and end angles in degrees,
 and whether to render in a clockwise direction"
-  (let [start (polar2cartesian {:cx cx :cy cy :radius radius :angle end-angle})
-        end   (polar2cartesian {:cx cx :cy cy :radius radius :angle start-angle})
+  (let [start (polar2cartesian {:cx cx :cy cy :radius radius :angle start-angle})
+        end   (polar2cartesian {:cx cx :cy cy :radius radius :angle end-angle})
         large-arc-flag 0]
     ;; NB: we assume only small arc segments,
     ;; therefore large-arc-flag is always 0

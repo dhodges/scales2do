@@ -41,13 +41,13 @@
   "curved labels 'Major' and 'Minor', marking the outer and inner circles"
   [:g {:dominant-baseline "baseline" :stroke "gray" :fill "gray"}
    [:path {:id "major-path"
-           :d (describe-arc {:cx 200 :cy 200 :radius 132 :start-angle 12 :end-angle -10 :clockwise true})
+           :d (describe-arc {:cx 200 :cy 200 :radius 132 :start-angle -10 :end-angle 12 :clockwise true})
            :fill "transparent" :stroke "none"}]
    [:text {:class "label"}
     [:textPath {:xlinkHref "#major-path" :text-anchor "start"} "Major"]]
 
    [:path {:id "minor-path"
-           :d (describe-arc {:cx 200 :cy 200 :radius 125 :start-angle -192 :end-angle -168 :clockwise false})
+           :d (describe-arc {:cx 200 :cy 200 :radius 125 :start-angle -168 :end-angle -192 :clockwise false})
            :fill "transparent" :stroke "none"}]
    [:text {:class "label"}
     [:textPath {:xlinkHref "#minor-path" :text-anchor "start"} "Minor"]]])
