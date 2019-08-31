@@ -13,6 +13,10 @@
   float: left;
 }
 
+#circle-inner:hover {
+  cursor: pointer;
+}
+
 .major {
   font-size: 24pt;
 }

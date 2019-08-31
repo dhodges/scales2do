@@ -1,6 +1,7 @@
 (ns ^:figwheel-hooks scales2do.core
   (:require
    [reagent.core :as reagent :refer [atom]]
+   [scales2do.behaviour :refer [setup-behaviours]]
    [scales2do.circle-component :as comp]
    [scales2do.dom :as dom]))
 
@@ -9,7 +10,8 @@
 
 (defn mount-app-elements []
   (when-let [el (dom/select-element "#circle-svg")]
-    (mount comp/circle-svg el)))
+    (mount comp/circle-svg el)
+    (setup-behaviours)))
 
 (mount-app-elements)
 

@@ -1,34 +1,44 @@
 (ns ^:figwheel-hooks scales2do.circle-component
   (:require
    [clojure.string :as str]
+   [scales2do.dom :refer [select-element]]
    [scales2do.scales :as scales]
    [scales2do.geometry :refer [rotate-pt-around-center describe-arc]]
    [reagent.core :as reagent :refer [atom]]))
 
-(defn name2id [name]
-  (if (str/ends-with? name "#")
-    (str (first name) "-sharp")
-    (if (str/ends-with? name "♭")
-      (str (first name) "-flat")
-      name)))
-
 (defonce app-state
-  (let [major-scale-names (concat (scales/fifths-major)
-                                  (reverse (rest (scales/fourths-major))))
-        minor-scale-names (concat (scales/fifths-minor)
-                                  (reverse (rest (scales/fourths-minor))))]
-    (atom
-     {:scales {;; outer circle of scale names
-               :major major-scale-names
-               :major-ids (map name2id major-scale-names)
-               ;; inner circle of scale names
-               :minor minor-scale-names
-               :minor-ids (map name2id minor-scale-names)}})))
+  (atom
+   {;; outer circle of scale names
+    :major-scale-names (concat (scales/fifths-major)
+                               (reverse (rest (scales/fourths-major))))
+    ;; inner circle of scale names
+    :minor-scale-names (concat (scales/fifths-minor)
+                               (reverse (rest (scales/fourths-minor))))
+    :current-scale-id nil
+    :previous-scale-ids []}))
 
-(defn make-text [x y cx cy angle class [ndx name]]
+(defn scale2id [scale type]
+  "return id an for the dom, given a name and a type (i.e. :major or :minor)"
+  (str (if (str/ends-with? scale "#")
+         (str (first scale) "-sharp")
+         (if (str/ends-with? scale "♭")
+           (str (first scale) "-flat")
+           scale))
+       "-" (name type))) ;; convert type from keyword
+
+(defn highlight-scale? [scale-id]
+  (= scale-id (:current-scale-id @app-state)))
+
+(defn scale-colour [id]
+  (if (highlight-scale? id) "red" "black"))
+
+(defn make-text [x y cx cy angle class [ndx scale]]
   (let [{:keys [x y]} (rotate-pt-around-center
-                       {:x x :y y :cx cx :cy cy :angle (* ndx angle)})]
-    [:text {:x x :y y :class class :id (name2id name) :key name} name]))
+                       {:x x :y y :cx cx :cy cy :angle (* ndx angle)})
+        id (scale2id scale class)
+        fill   (scale-colour id)
+        stroke (scale-colour id)]
+    [:text {:x x :y y :class class :fill fill :stroke stroke :id id :key id} scale]))
 
 (defn indexed-names [seq]
   "return a sequence of pairs: [[item-index item]...]"
@@ -67,12 +77,12 @@
 (defn major-scales []
   [:g
    (map (partial make-text 200 40 200 200 30 "major")
-        (indexed-names (get-in @app-state [:scales :major])))])
+        (indexed-names (:major-scale-names @app-state)))])
 
 (defn minor-scales []
   [:g
    (map (partial make-text 200 105 200 200 30 "minor")
-        (indexed-names (get-in @app-state [:scales :minor])))])
+        (indexed-names (:minor-scale-names @app-state)))])
 
 ;; the main "circle of cycles" svg component
 
