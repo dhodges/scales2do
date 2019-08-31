@@ -1,2 +1,3 @@
+* TODO highlight random choice of scale name
 * TODO setup SASS
 * TODO visual toggles for major/minor/fifths/fourths
