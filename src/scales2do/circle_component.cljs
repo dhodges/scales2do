@@ -1,7 +1,7 @@
 (ns ^:figwheel-hooks scales2do.circle-component
   (:require
    [scales2do.scales :as scales]
-   [scales2do.math :refer [rotate-pt-around-center describe-arc]]
+   [scales2do.geometry :refer [rotate-pt-around-center describe-arc]]
    [reagent.core :as reagent :refer [atom]]))
 
 (defonce app-state

@@ -1,4 +1,4 @@
-(ns ^:figwheel-hooks scales2do.math
+(ns ^:figwheel-hooks scales2do.geometry
   (:require [clojure.string :as str]))
 
 (defn rotate-pt-around-center

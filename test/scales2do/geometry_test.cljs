@@ -1,7 +1,7 @@
-(ns scales2do.math-test
+(ns scales2do.geometry-test
     (:require
      [cljs.test :refer-macros [deftest is testing]]
-     [scales2do.math :refer [rotate-pt-around-center]]))
+     [scales2do.geometry :refer [rotate-pt-around-center]]))
 
 ;; helper
 (defn rotate [{:as args}]
