@@ -25,14 +25,17 @@
     {:x (int (+ cx (* radius cos-angle)))
      :y (int (+ cy (* radius sin-angle)))}))
 
-(defn describe-arc [cx cy radius start-angle end-angle]
+(defn describe-arc [cx cy radius start-angle end-angle clockwise?]
   "describe an arc, suitable for use in an svg path,
-given a center pt, radius, start and end angles in degrees"
+given a center pt, radius, start and end angles in degrees,
+and whether to render in a clockwise direction"
   (let [start (polar2cartesian cx cy radius end-angle)
         end   (polar2cartesian cx cy radius start-angle)
-        large-arc-flag (if (<= (- end-angle start-angle) 180)
-                         "0"
-                         "1")]
+        large-arc-flag 0]
+    ;; NB: we assume only small arc segments,
+    ;; therefore large-arc-flag is always 0
     (str/join " "
               ["M" (:x start) (:y start)
-               "A" radius radius 0 large-arc-flag 0 (:x end) (:y end)])))
+               "A" radius radius 0 large-arc-flag
+               (if clockwise? 1 0)
+               (:x end) (:y end)])))

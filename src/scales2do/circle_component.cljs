@@ -36,30 +36,43 @@
     [:use {:xlinkHref "#line" :transform "rotate(300,200,200)"}]
     [:use {:xlinkHref "#line" :transform "rotate(330,200,200)"}]])
 
+(defn major-minor-labels []
+  [:g {:dominant-baseline "baseline" :stroke "gray" :fill "gray" :font-size 18 :font-variant "small-caps"}
+   [:path {:id "major-path" :d (describe-arc 200 200 132 12 -10 true) :fill "transparent" :stroke "none"}]
+   [:text
+    [:textPath {:xlinkHref "#major-path" :text-anchor "start"} "Major"]]
+   [:path {:id "minor-path" :d (describe-arc 200 200 125 -192 -168 false) :fill "transparent" :stroke "none"}]
+   [:text
+    [:textPath {:xlinkHref "#minor-path" :text-anchor "start"} "Minor"]]])
+
+(defn major-scales []
+  [:g {:font-size 32}
+   (let [major-fifths  (get-in @app-state [:scales :fifths :major])
+         major-fourths (rest (get-in @app-state [:scales :fourths :major]))]
+     (concat
+      (map (partial make-text 200 40 200 200 30 "major")
+           (indexed-names major-fifths))
+      (map (partial make-text 120 67 200 200 -30 "major")
+           (indexed-names major-fourths))))])
+
+(defn minor-scales []
+  [:g {:font-size 24}
+   (let [minor-fifths  (get-in @app-state [:scales :fifths :minor])
+         minor-fourths (rest (get-in @app-state [:scales :fourths :minor]))]
+        (concat
+         (map (partial make-text 200 105 200 200 30 "minor")
+              (indexed-names minor-fifths))
+         (map (partial make-text 150 118 200 200 -30 "minor")
+              (indexed-names minor-fourths))))])
+
 (defn circle-svg []
   [:svg {:width 400 :height 400}
    [:g {:stroke "gray" :fill "white"}
-    [:circle {:id "circle-outer"  :cx 200 :cy 200 :r 190 :stroke-width 4}]
+    [:circle {:id "circle-outer"  :cx 200 :cy 200 :r 190 :stroke-width 3}]
     [:circle {:id "circle-middle" :cx 200 :cy 200 :r 130 :stroke-width 2}]
     [segment-lines]
     [:circle {:id "circle-inner"  :cx 200 :cy 200 :r  70 :stroke-width 2}]
+    [major-minor-labels]
     [:g {:text-anchor "middle" :dominant-baseline "middle" :fill "black" :font-family "Arial, Helvetica, sans-serif"}
-     [:g {:font-size 32}
-      (let [major-fifths  (get-in @app-state [:scales :fifths :major])
-            major-fourths (rest (get-in @app-state [:scales :fourths :major]))]
-
-        (concat
-         (map (partial make-text 200 40 200 200 30 "major")
-              (indexed-names major-fifths))
-         (map (partial make-text 120 61 200 200 -30 "major")
-              (indexed-names major-fourths))))]
-
-     [:g {:font-size 24}
-      (let [minor-fifths  (get-in @app-state [:scales :fifths :minor])
-            minor-fourths (rest (get-in @app-state [:scales :fourths :minor]))]
-
-        (concat
-         (map (partial make-text 200 100 200 200 30 "minor")
-              (indexed-names minor-fifths))
-         (map (partial make-text 150 113 200 200 -30 "minor")
-              (indexed-names minor-fourths))))]]]])
+     [major-scales]
+     [minor-scales]]]])
