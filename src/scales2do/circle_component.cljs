@@ -1,22 +1,34 @@
 (ns ^:figwheel-hooks scales2do.circle-component
   (:require
+   [clojure.string :as str]
    [scales2do.scales :as scales]
    [scales2do.geometry :refer [rotate-pt-around-center describe-arc]]
    [reagent.core :as reagent :refer [atom]]))
 
+(defn name2id [name]
+  (if (str/ends-with? name "#")
+    (str (first name) "-sharp")
+    (if (str/ends-with? name "♭")
+      (str (first name) "-flat")
+      name)))
+
 (defonce app-state
-  (atom
-   {:scales {;; outer circle of scale names
-             :major (concat (scales/fifths-major)
-                            (reverse (rest (scales/fourths-major))))
-             ;; inner circle of scale names
-             :minor (concat (scales/fifths-minor)
-                            (reverse (rest (scales/fourths-minor))))}}))
+  (let [major-scale-names (concat (scales/fifths-major)
+                                  (reverse (rest (scales/fourths-major))))
+        minor-scale-names (concat (scales/fifths-minor)
+                                  (reverse (rest (scales/fourths-minor))))]
+    (atom
+     {:scales {;; outer circle of scale names
+               :major major-scale-names
+               :major-ids (map name2id major-scale-names)
+               ;; inner circle of scale names
+               :minor minor-scale-names
+               :minor-ids (map name2id minor-scale-names)}})))
 
 (defn make-text [x y cx cy angle class [ndx name]]
   (let [{:keys [x y]} (rotate-pt-around-center
                        {:x x :y y :cx cx :cy cy :angle (* ndx angle)})]
-    [:text {:x x :y y :class class :id name :key name} name]))
+    [:text {:x x :y y :class class :id (name2id name) :key name} name]))
 
 (defn indexed-names [seq]
   "return a sequence of pairs: [[item-index item]...]"
