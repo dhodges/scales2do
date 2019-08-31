@@ -1,4 +1,5 @@
-(ns ^:figwheel-hooks scales2do.math)
+(ns ^:figwheel-hooks scales2do.math
+  (:require [clojure.string :as str]))
 
 (defn rotate-pt-around-center
   [{:keys [x y angle cx cy]}]
@@ -12,3 +13,26 @@
         rotated-y (+ cy (+ (* sin-angle diff-x)
                            (* cos-angle diff-y)))]
     {:x (int rotated-x) :y (int rotated-y)}))
+
+;; see: https://stackoverflow.com/posts/18473154/revisions
+
+(defn polar2cartesian [cx cy radius angle]
+  ;; first, convert angle to radians
+  (let [angle (/ (* (- angle 90) js/Math.PI)
+                 180.0)
+        cos-angle (js/Math.cos angle)
+        sin-angle (js/Math.sin angle)]
+    {:x (int (+ cx (* radius cos-angle)))
+     :y (int (+ cy (* radius sin-angle)))}))
+
+(defn describe-arc [cx cy radius start-angle end-angle]
+  "describe an arc, suitable for use in an svg path,
+given a center pt, radius, start and end angles in degrees"
+  (let [start (polar2cartesian cx cy radius end-angle)
+        end   (polar2cartesian cx cy radius start-angle)
+        large-arc-flag (if (<= (- end-angle start-angle) 180)
+                         "0"
+                         "1")]
+    (str/join " "
+              ["M" (:x start) (:y start)
+               "A" radius radius 0 large-arc-flag 0 (:x end) (:y end)])))
