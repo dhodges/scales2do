@@ -1,7 +1,8 @@
 (ns scales2do.geometry-test
     (:require
      [cljs.test :refer-macros [deftest is testing]]
-     [scales2do.geometry :refer [rotate-pt-around-center]]))
+     [scales2do.geometry :refer [rotate-pt-around-center
+                                 polar2cartesian]]))
 
 ;; helper
 (defn rotate [{:as args}]
@@ -17,3 +18,8 @@
   (is (= {:x 120 :y  61} (rotate {:x 200 :y  40 :angle -30})))
   (is (= {:x 150 :y 113} (rotate {:x 200 :y 100 :angle -30})))
   (is (= {:x 482 :y 200} (rotate {:x 400 :y 400 :angle -45}))))
+
+(deftest polar2cartesian-test
+  (is (= {:x 192 :y 171} (polar2cartesian {:cx 200 :cy 200 :radius  30 :angle -15})))
+  (is (= {:x 249 :y 150} (polar2cartesian {:cx 200 :cy 200 :radius  70 :angle  45})))
+  (is (= {:x 200 :y 310} (polar2cartesian {:cx 200 :cy 200 :radius 110 :angle 180}))))

@@ -16,7 +16,7 @@
 
 ;; see: https://stackoverflow.com/posts/18473154/revisions
 
-(defn polar2cartesian [cx cy radius angle]
+(defn polar2cartesian [{:keys [cx cy radius angle]}]
   ;; first, convert angle to radians
   (let [angle (/ (* (- angle 90) js/Math.PI)
                  180.0)
@@ -29,8 +29,8 @@
   "describe an arc, suitable for use in an svg path,
 given a center pt, radius, start and end angles in degrees,
 and whether to render in a clockwise direction"
-  (let [start (polar2cartesian cx cy radius end-angle)
-        end   (polar2cartesian cx cy radius start-angle)
+  (let [start (polar2cartesian {:cx cx :cy cy :radius radius :angle end-angle})
+        end   (polar2cartesian {:cx cx :cy cy :radius radius :angle start-angle})
         large-arc-flag 0]
     ;; NB: we assume only small arc segments,
     ;; therefore large-arc-flag is always 0
