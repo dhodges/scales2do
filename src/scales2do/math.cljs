@@ -25,7 +25,7 @@
     {:x (int (+ cx (* radius cos-angle)))
      :y (int (+ cy (* radius sin-angle)))}))
 
-(defn describe-arc [cx cy radius start-angle end-angle clockwise?]
+(defn describe-arc [{:keys [cx cy radius start-angle end-angle clockwise]}]
   "describe an arc, suitable for use in an svg path,
 given a center pt, radius, start and end angles in degrees,
 and whether to render in a clockwise direction"
@@ -37,5 +37,5 @@ and whether to render in a clockwise direction"
     (str/join " "
               ["M" (:x start) (:y start)
                "A" radius radius 0 large-arc-flag
-               (if clockwise? 1 0)
+               (if clockwise 1 0)
                (:x end) (:y end)])))
