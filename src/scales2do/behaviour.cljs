@@ -7,12 +7,11 @@
   (when-not (= nil (:current-scale-id @app-state))
     (swap! app-state assoc :previous-scale-ids
            (conj (:previous-scale-ids @app-state)
-                 (:current-scale-id @app-state)))
-    (swap! app-state assoc :current-scale-id scale-id)))
+                 (:current-scale-id @app-state))))
+  (swap! app-state assoc :current-scale-id scale-id))
 
 (defn previously-seen? [scale-id]
-  (or (= scale-id (:current-scale-id @app-state))
-      (some #(= scale-id %) (:previous-scale-ids @app-state))))
+  (some #(= scale-id %) (:previous-scale-ids @app-state)))
 
  (defn random-scale-id []
      "return a random choice of scale as a tuple: [scale type] e.g. [\"C\" :major]"

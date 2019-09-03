@@ -31,9 +31,9 @@ given a center pt, radius, start and end angles in degrees,
 and whether to render in a clockwise direction"
   (let [start (polar2cartesian {:cx cx :cy cy :radius radius :angle start-angle})
         end   (polar2cartesian {:cx cx :cy cy :radius radius :angle end-angle})
+        ;; NB: we assume only small arc segments,
+        ;; therefore large-arc-flag is always 0
         large-arc-flag 0]
-    ;; NB: we assume only small arc segments,
-    ;; therefore large-arc-flag is always 0
     (str/join " "
               ["M" (:x start) (:y start)
                "A" radius radius 0 large-arc-flag

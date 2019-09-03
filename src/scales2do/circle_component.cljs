@@ -1,9 +1,8 @@
 (ns ^:figwheel-hooks scales2do.circle-component
   (:require
    [clojure.string :as str]
-   [scales2do.dom :refer [select-element]]
+   [scales2do.geometry :refer [describe-arc rotate-pt-around-center]]
    [scales2do.scales :as scales]
-   [scales2do.geometry :refer [rotate-pt-around-center describe-arc]]
    [reagent.core :as reagent :refer [atom]]))
 
 (defonce app-state
@@ -76,13 +75,13 @@
 
 (defn major-scales []
   [:g
-   (map (partial make-text 200 40 200 200 30 "major")
-        (indexed-names (:major-scale-names @app-state)))])
+   (doall (map (partial make-text 200 40 200 200 30 "major")
+               (indexed-names (:major-scale-names @app-state))))])
 
 (defn minor-scales []
   [:g
-   (map (partial make-text 200 105 200 200 30 "minor")
-        (indexed-names (:minor-scale-names @app-state)))])
+   (doall (map (partial make-text 200 105 200 200 30 "minor")
+               (indexed-names (:minor-scale-names @app-state))))])
 
 ;; the main "circle of cycles" svg component
 

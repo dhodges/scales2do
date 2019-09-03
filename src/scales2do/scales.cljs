@@ -33,7 +33,6 @@
 (defn fifths-minor []
   (minor fifths))
 
-
 (defn fourths-major []
   (major fourths))
 
