@@ -28,16 +28,12 @@
 (defn highlight-scale? [scale-id]
   (= scale-id (:current-scale-id @app-state)))
 
-(defn scale-colour [id]
-  (if (highlight-scale? id) "red" "black"))
-
 (defn make-text [x y cx cy angle class [ndx scale]]
   (let [{:keys [x y]} (rotate-pt-around-center
                        {:x x :y y :cx cx :cy cy :angle (* ndx angle)})
         id (scale2id scale class)
-        fill   (scale-colour id)
-        stroke (scale-colour id)]
-    [:text {:x x :y y :class class :fill fill :stroke stroke :id id :key id} scale]))
+        class (if (highlight-scale? id) (str class " highlight") class)]
+    [:text {:x x :y y :class class :id id :key id} scale]))
 
 (defn indexed-names [seq]
   "return a sequence of pairs: [[item-index item]...]"

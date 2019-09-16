@@ -25,6 +25,11 @@
   font-size: 20pt;
 }
 
+.highlight {
+  fill: red;
+  stroke: red;
+}
+
 .label {
   font-size: 12pt;
   font-variant: small-caps;
