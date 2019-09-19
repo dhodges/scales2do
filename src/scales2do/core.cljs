@@ -9,8 +9,8 @@
   (reagent/render-component [component] el))
 
 (defn mount-app-elements []
-  (when-let [el (gdom/getElement "circle-svg")]
-    (mount comp/circle-svg el)
+  (when-let [el (gdom/getElement "scale-names")]
+    (mount comp/scale-names el)
     (setup-behaviours)))
 
 (mount-app-elements)

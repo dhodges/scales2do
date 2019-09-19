@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link rel="icon" href="https://clojurescript.org/images/cljs-logo-icon-32.png">
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <link href="css/stylesvg.css" rel="stylesheet" type="text/css"/>
   </head>
+
   <body>
-    <div id="app">
-      <div id="circle-svg"></div>
-    </div>
+    <svg width="400px" height="400px" viewBox="-200 -200 400 400"
+         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+      <defs>
+        <radialGradient id="fade" cx="0" cy="0" r="200" gradientUnits="userSpaceOnUse">
+          <stop id="fade-stop-1" offset="33%"/>
+          <stop id="fade-stop-2" offset="95%"/>
+        </radialGradient>
+
+        <path id="segment" d="M 0,0 v-200 A 200 200 0 0,0 -99 -173 z"/>
+
+        <g id="segments" class="segment">
+          <g transform="rotate(15)">  <use href="#segment"></g>
+          <g transform="rotate(45)">  <use href="#segment"></g>
+          <g transform="rotate(75)">  <use href="#segment"></g>
+          <g transform="rotate(105)"> <use href="#segment"></g>
+          <g transform="rotate(135)"> <use href="#segment"></g>
+          <g transform="rotate(165)"> <use href="#segment"></g>
+          <g transform="rotate(195)"> <use href="#segment"></g>
+          <g transform="rotate(225)"> <use href="#segment"></g>
+          <g transform="rotate(255)"> <use href="#segment"></g>
+          <g transform="rotate(285)"> <use href="#segment"></g>
+          <g transform="rotate(315)"> <use href="#segment"></g>
+          <g transform="rotate(345)"> <use href="#segment"></g>
+        </g>
+      </defs>
+
+      <g id="scales">
+        <circle id="circle-background" cx="0" cy="0" r="200" fill="url(#fade)" transform="scale(0.95)"/>
+
+        <g id="major-segments" transform="scale(0.95)"> <use href="#segments"></g>
+        <g id="minor-segments" transform="scale(0.66)"> <use href="#segments"></g>
+        <g id="scale-names"/>
+
+        <circle id="circle-overlay" cx="0" cy="0" r="200"  transform="scale(0.33)"/>
+      </g>
+    </svg>
+
     <script src="cljs-out/dev-main.js" type="text/javascript"></script>
   </body>
 </html>

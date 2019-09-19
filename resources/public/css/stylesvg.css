@@ -1,0 +1,56 @@
+svg {
+}
+
+#scales {
+  stroke: deepskyblue;
+}
+
+#scales text {
+  fill: gray;
+  stroke: gray;
+}
+
+#scale-names {
+  font-size: 15pt;
+}
+
+#scale-names .highlight {
+  fill: red;
+  stroke: red;
+}
+
+.segment {
+  opacity: 1.0;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* gradient */
+#fade-stop-1 {
+  stop-color: lightsteelblue;
+}
+
+#fade-stop-2 {
+  stop-color: white;
+}
+
+#circle-background {
+  cursor: pointer;
+  stroke-width: 3;
+}
+
+#circle-overlay {
+  cursor: pointer;
+  fill: white;
+  stroke-width: 4;
+  --circle-overlay-fill-active: plum;
+  --circle-overlay-fill-hover: lightsteelblue;
+}
+
+#circle-overlay:hover {
+  fill: var(--circle-overlay-fill-hover);
+}
+
+#circle-overlay:active {
+  fill: var(--circle-overlay-fill-active);
+}

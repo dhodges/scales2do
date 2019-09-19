@@ -36,6 +36,6 @@
       (highlight-random-scale))))
 
 (defn setup-behaviours []
-  (.addEventListener (gdom/getElement "circle-inner")
+  (.addEventListener (gdom/getElement "circle-overlay")
                      "click"
                      choose-random-scale))
