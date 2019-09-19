@@ -41,25 +41,33 @@
 
 (defn major-minor-labels []
   "curved labels 'Major' and 'Minor', marking the outer and inner circles"
-  [:g {:dominant-baseline "baseline" :stroke "gray" :fill "gray"}
-   [:path#major-path {:d (describe-arc {:radius 132 :start-angle -10 :end-angle 12 :clockwise true})
-                      :fill "transparent" :stroke "none"}]
-   [:text {:class "label"}
-    [:textPath {:href "#major-path" :text-anchor "start"} "Major"]]
+  [:g
+   (let [attrs-major {:x 0 :y -200 :text-anchor "middle" :class "label"}]
+     [:g {:transform "scale(0.68)"}
+      [:text (merge attrs-major {:transform "rotate(-60)"}) "M"]
+      [:text (merge attrs-major {:transform "rotate(-30)"}) "A"]
+      [:text (merge attrs-major {:transform "rotate(  0)"}) "J"]
+      [:text (merge attrs-major {:transform "rotate( 30)"}) "O"]
+      [:text (merge attrs-major {:transform "rotate( 60)"}) "R"]])
 
-   [:path#minor-path {:d (describe-arc {:radius 125 :start-angle -168 :end-angle -192 :clockwise false})
-                      :fill "transparent" :stroke "none"}]
-   [:text {:class "label"}
-    [:textPath {:href "#minor-path" :text-anchor "start"} "Minor"]]])
+   (let [attrs-minor {:x 0 :y 200 :text-anchor "middle" :class "label"}]
+     [:g {:transform "scale(0.63)"}
+      [:text (merge attrs-minor {:transform "rotate( 60)"}) "M"]
+      [:text (merge attrs-minor {:transform "rotate( 30)"}) "I"]
+      [:text (merge attrs-minor {:transform "rotate(  0)"}) "N"]
+      [:text (merge attrs-minor {:transform "rotate(-30)"}) "O"]
+      [:text (merge attrs-minor {:transform "rotate(-60)"}) "R"]])
+
+   ])
 
 (defn major-scales []
   [:g
-   (doall (map (partial make-text 0 -170 30 "major")
+   (doall (map (partial make-text 0 -160 30 "major")
                (indexed-names (:major-scale-names @app-state))))])
 
 (defn minor-scales []
   [:g
-   (doall (map (partial make-text 0 -105 30 "minor")
+   (doall (map (partial make-text 0 -100 30 "minor")
                (indexed-names (:minor-scale-names @app-state))))])
 
 (defn major-minor-scales []
