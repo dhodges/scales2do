@@ -2,8 +2,11 @@
   (:require [clojure.string :as str]))
 
 (defn rotate-pt-around-center
-  [{:keys [x y angle cx cy]}]
-  (let [angle  (* angle (/ Math.PI 180))  ;; convert to radians
+  "rotate the given point around 0,0"
+  [{:keys [x y angle]}]
+  (let [cx 0
+        cy 0
+        angle  (* angle (/ Math.PI 180))  ;; convert to radians
         cos-angle (js/Math.cos angle)
         sin-angle (js/Math.sin angle)
         diff-x (- x cx)
@@ -16,21 +19,26 @@
 
 ;; see: https://stackoverflow.com/posts/18473154/revisions
 
-(defn polar2cartesian [{:keys [cx cy radius angle]}]
-  ;; first, convert angle to radians
-  (let [angle (/ (* (- angle 90) js/Math.PI)
+(defn polar2cartesian [{:keys [radius angle]}]
+  "with origin at 0,0 convert polar coordinates to cartesian"
+  (let [cx 0
+        cy 0
+        ;; convert angle to radians
+        angle (/ (* (- angle 90) js/Math.PI)
                  180.0)
         cos-angle (js/Math.cos angle)
         sin-angle (js/Math.sin angle)]
     {:x (int (+ cx (* radius cos-angle)))
      :y (int (+ cy (* radius sin-angle)))}))
 
-(defn describe-arc [{:keys [cx cy radius start-angle end-angle clockwise]}]
+(defn describe-arc [{:keys [radius start-angle end-angle clockwise]}]
   "describe an arc, suitable for use in an svg path,
-given a center pt, radius, start and end angles in degrees,
+with origin at 0,0 and the given radius, start and end angles in degrees,
 and whether to render in a clockwise direction"
-  (let [start (polar2cartesian {:cx cx :cy cy :radius radius :angle start-angle})
-        end   (polar2cartesian {:cx cx :cy cy :radius radius :angle end-angle})
+  (let [cx 0
+        cy 0
+        start (polar2cartesian {:radius radius :angle start-angle})
+        end   (polar2cartesian {:radius radius :angle end-angle})
         ;; NB: we assume only small arc segments,
         ;; therefore large-arc-flag is always 0
         large-arc-flag 0]

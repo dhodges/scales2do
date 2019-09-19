@@ -4,22 +4,18 @@
      [scales2do.geometry :refer [rotate-pt-around-center
                                  polar2cartesian]]))
 
-;; helper
-(defn rotate [{:as args}]
-  (rotate-pt-around-center (merge args {:cx 200 :cy 200})))
-
 (deftest rotate-x-y-around-center-test
-  (is (= {:x 200 :y   0} (rotate {:x   0 :y 200 :angle 90})))
-  (is (= {:x 400 :y 200} (rotate {:x 200 :y   0 :angle 90})))
-  (is (= {:x 200 :y 400} (rotate {:x 400 :y 200 :angle 90})))
+  (is (= {:x -200 :y   0} (rotate-pt-around-center {:x   0 :y 200 :angle 90})))
+  (is (= {:x    0 :y 200} (rotate-pt-around-center {:x 200 :y   0 :angle 90})))
+  (is (= {:x -199 :y 400} (rotate-pt-around-center {:x 400 :y 200 :angle 90})))
 
-  (is (= {:x 148 :y   6} (rotate {:x 200 :y   0 :angle -15})))
-  (is (= {:x 251 :y   6} (rotate {:x 200 :y   0 :angle  15})))
-  (is (= {:x 120 :y  61} (rotate {:x 200 :y  40 :angle -30})))
-  (is (= {:x 150 :y 113} (rotate {:x 200 :y 100 :angle -30})))
-  (is (= {:x 482 :y 200} (rotate {:x 400 :y 400 :angle -45}))))
+  (is (= {:x 193 :y -51} (rotate-pt-around-center {:x 200 :y   0 :angle -15})))
+  (is (= {:x 193 :y  51} (rotate-pt-around-center {:x 200 :y   0 :angle  15})))
+  (is (= {:x 193 :y -65} (rotate-pt-around-center {:x 200 :y  40 :angle -30})))
+  (is (= {:x 223 :y -13} (rotate-pt-around-center {:x 200 :y 100 :angle -30})))
+  (is (= {:x 565 :y   0} (rotate-pt-around-center {:x 400 :y 400 :angle -45}))))
 
 (deftest polar2cartesian-test
-  (is (= {:x 192 :y 171} (polar2cartesian {:cx 200 :cy 200 :radius  30 :angle -15})))
-  (is (= {:x 249 :y 150} (polar2cartesian {:cx 200 :cy 200 :radius  70 :angle  45})))
-  (is (= {:x 200 :y 310} (polar2cartesian {:cx 200 :cy 200 :radius 110 :angle 180}))))
+  (is (= {:x -7 :y -28} (polar2cartesian {:radius  30 :angle -15})))
+  (is (= {:x 49 :y -49} (polar2cartesian {:radius  70 :angle  45})))
+  (is (= {:x 0  :y 110} (polar2cartesian {:radius 110 :angle 180}))))

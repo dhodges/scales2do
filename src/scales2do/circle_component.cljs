@@ -28,9 +28,9 @@
 (defn highlight-scale? [scale-id]
   (= scale-id (:current-scale-id @app-state)))
 
-(defn make-text [x y cx cy angle class [ndx scale]]
+(defn make-text [x y angle class [ndx scale]]
   (let [{:keys [x y]} (rotate-pt-around-center
-                       {:x x :y y :cx cx :cy cy :angle (* ndx angle)})
+                       {:x x :y y :angle (* ndx angle)})
         id (scale2id scale class)
         class (if (highlight-scale? id) (str class " highlight") class)]
     [:text {:x x :y y :class class :id id :key id} scale]))
@@ -42,24 +42,24 @@
 (defn major-minor-labels []
   "curved labels 'Major' and 'Minor', marking the outer and inner circles"
   [:g {:dominant-baseline "baseline" :stroke "gray" :fill "gray"}
-   [:path#major-path {:d (describe-arc {:cx 0 :cy 0 :radius 132 :start-angle -10 :end-angle 12 :clockwise true})
+   [:path#major-path {:d (describe-arc {:radius 132 :start-angle -10 :end-angle 12 :clockwise true})
                       :fill "transparent" :stroke "none"}]
    [:text {:class "label"}
     [:textPath {:href "#major-path" :text-anchor "start"} "Major"]]
 
-   [:path#minor-path {:d (describe-arc {:cx 0 :cy 0 :radius 125 :start-angle -168 :end-angle -192 :clockwise false})
+   [:path#minor-path {:d (describe-arc {:radius 125 :start-angle -168 :end-angle -192 :clockwise false})
                       :fill "transparent" :stroke "none"}]
    [:text {:class "label"}
     [:textPath {:href "#minor-path" :text-anchor "start"} "Minor"]]])
 
 (defn major-scales []
   [:g
-   (doall (map (partial make-text 0 -170 0 0 30 "major")
+   (doall (map (partial make-text 0 -170 30 "major")
                (indexed-names (:major-scale-names @app-state))))])
 
 (defn minor-scales []
   [:g
-   (doall (map (partial make-text 0 -105 0 0 30 "minor")
+   (doall (map (partial make-text 0 -105 30 "minor")
                (indexed-names (:minor-scale-names @app-state))))])
 
 (defn major-minor-scales []
