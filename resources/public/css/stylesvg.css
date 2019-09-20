@@ -25,6 +25,7 @@ svg {
 
 #scale-names .highlight {
   fill: red;
+  font-size: 24pt;
   stroke: red;
 }
 

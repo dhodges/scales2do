@@ -14,7 +14,7 @@
     :minor-scale-names (concat (scales/fifths-minor)
                                (reverse (rest (scales/fourths-minor))))
     :current-scale-id nil
-    :previous-scale-ids []}))
+    :scale-ids-to-show []}))
 
 (defn scale2id [scale type]
   "return id an for the dom, given a name and a type (i.e. :major or :minor)"
@@ -24,6 +24,15 @@
            (str (first scale) "-flat")
            scale))
        "-" (name type))) ;; convert type from keyword
+
+(defn all-scale-ids []
+  (concat
+   (map #(scale2id % :major) (:major-scale-names @app-state))
+   (map #(scale2id % :minor) (:minor-scale-names @app-state))))
+
+(defn reset-scale-ids-to-show []
+  (swap! app-state assoc :scale-ids-to-show
+         (shuffle (all-scale-ids))))
 
 (defn highlight-scale? [scale-id]
   (= scale-id (:current-scale-id @app-state)))
