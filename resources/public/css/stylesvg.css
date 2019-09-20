@@ -29,8 +29,7 @@ svg {
   stroke: red;
 }
 
-.segment {
-  opacity: 1.0;
+.cell {
   fill: none;
   stroke-width: 2;
 }
