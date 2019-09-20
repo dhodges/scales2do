@@ -20,7 +20,7 @@
       </defs>
 
       <g id="scales">
-        <circle id="circle-background" cx="0" cy="0" r="200" fill="url(#fade)" transform="scale(0.95)"/>
+        <circle id="circle-outer" cx="0" cy="0" r="200" fill="url(#fade)" transform="scale(0.95)"/>
 
         <g id="major-segments" class="segments" transform="scale(0.95)">
           <g class="cell" transform="rotate(15)">  <use href="#slice"></g>
@@ -36,6 +36,8 @@
           <g class="cell" transform="rotate(315)"> <use href="#slice"></g>
           <g class="cell" transform="rotate(345)"> <use href="#slice"></g>
         </g>
+
+        <circle id="circle-middle" cx="0" cy="0" r="200"  transform="scale(0.66)"/>
 
         <g id="minor-segments" class="segments" transform="scale(0.66)">
           <g class="cell" transform="rotate(15)">  <use href="#slice"></g>
@@ -54,7 +56,7 @@
 
         <g id="scale-names"/>
 
-        <circle id="circle-overlay" cx="0" cy="0" r="200"  transform="scale(0.33)"/>
+        <circle id="circle-inner" cx="0" cy="0" r="200"  transform="scale(0.33)"/>
       </g>
     </svg>
 

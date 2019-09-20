@@ -31,7 +31,7 @@ svg {
 
 .cell {
   fill: none;
-  stroke-width: 2;
+  stroke: none;
 }
 
 /* gradient */
@@ -43,23 +43,28 @@ svg {
   stop-color: white;
 }
 
-#circle-background {
+#circle-outer {
   cursor: pointer;
   stroke-width: 3;
 }
 
-#circle-overlay {
+#circle-middle {
+  fill: none;
+  stroke-width: 2;
+}
+
+#circle-inner {
   cursor: pointer;
   fill: white;
   stroke-width: 4;
-  --circle-overlay-fill-active: plum;
-  --circle-overlay-fill-hover: lightsteelblue;
+  --circle-inner-fill-active: plum;
+  --circle-inner-fill-hover: lightsteelblue;
 }
 
-#circle-overlay:hover {
-  fill: var(--circle-overlay-fill-hover);
+#circle-inner:hover {
+  fill: var(--circle-inner-fill-hover);
 }
 
-#circle-overlay:active {
-  fill: var(--circle-overlay-fill-active);
+#circle-inner:active {
+  fill: var(--circle-inner-fill-active);
 }

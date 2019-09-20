@@ -19,7 +19,7 @@
 
 (defn setup-behaviours []
   (reset-scale-ids-to-show)
-  (.addEventListener (gdom/getElement "circle-overlay")
+  (.addEventListener (gdom/getElement "circle-inner")
                      "click"
                      choose-random-scale)
   (choose-random-scale))
