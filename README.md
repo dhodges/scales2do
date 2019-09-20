@@ -20,20 +20,20 @@ To launch a repl from the shell, including auto-compile and load:
 $ clojure -A:fig:build
 ```
 
+To launch a cider cljs repl from emacs, run cider-jack-in-cljs (C-c M-J)
+
 To clean all compiled files:
 
 ```
 $ rm -rf target/public
 ```
 
-To create a production build:
+To create a minimal build:
 
 ```
 $ rm -rf target/public
-$ clojure -A:fig:min
+$ clojure -A:fig:prod
 ```
-
-To launch a cider cljs repl from emacs, run cider-jack-in-cljs (C-c M-J)
 
 ## Testing
 
@@ -45,6 +45,14 @@ Tests are auto-updated and run if you open a browser tab to:
 
     http://localhost:9500/figwheel-extra-main/auto-testing
 
+
+## Deployment
+
+To create a production build:
+
+```
+$ clojure -A:fig:prod
+```
 
 ## License
 

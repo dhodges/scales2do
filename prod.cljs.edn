@@ -1,0 +1,5 @@
+^{:watch-dirs ["src"]
+  :css-dirs ["resources/public/css"]}
+{:main scales2do.core
+ :optimizations :advanced
+ :output-to "resources/public/cljs-out/dev-main.js"}
