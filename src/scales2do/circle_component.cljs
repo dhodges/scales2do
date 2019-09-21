@@ -49,22 +49,22 @@
 
    ])
 
-(defn major-scales []
+(defn major-scale-names []
   [:g
    (doall (map (partial make-text 0 -160 30 "major")
                (indexed-items scales/major-scales)))])
 
-(defn minor-scales []
+(defn minor-scale-names []
   [:g
    (doall (map (partial make-text 0 -100 30 "minor")
                (indexed-items scales/minor-scales)))])
 
-(defn major-minor-scales []
+(defn all-scale-names []
   [:g {:text-anchor "middle" :dominant-baseline "middle" :fill "black"}
-   [major-scales]
-   [minor-scales]])
+   [major-scale-names]
+   [minor-scale-names]])
 
 (defn scale-names []
   [:g
    [major-minor-labels]
-   [major-minor-scales]])
+   [all-scale-names]])
