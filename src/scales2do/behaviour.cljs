@@ -1,6 +1,6 @@
 (ns scales2do.behaviour
   (:require
-   [scales2do.circle-component :refer [app-state reset-scale-ids-to-show scale2id]]
+   [scales2do.circle-component :refer [app-state reset-scale-ids-to-show]]
    [goog.dom :as gdom]))
 
 (defn highlight-random-scale []

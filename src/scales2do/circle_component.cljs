@@ -7,42 +7,22 @@
 
 (defonce app-state
   (atom
-   {;; outer circle of scale names
-    :major-scale-names (concat (scales/fifths-major)
-                               (reverse (rest (scales/fourths-major))))
-    ;; inner circle of scale names
-    :minor-scale-names (concat (scales/fifths-minor)
-                               (reverse (rest (scales/fourths-minor))))
+   {
     :current-scale-id nil
     :scale-ids-to-show []}))
 
-(defn scale2id [scale type]
-  "return id an for the dom, given a name and a type (i.e. :major or :minor)"
-  (str (if (str/ends-with? scale "#")
-         (str (first scale) "-sharp")
-         (if (str/ends-with? scale "♭")
-           (str (first scale) "-flat")
-           scale))
-       "-" (name type))) ;; convert type from keyword
-
-(defn all-scale-ids []
-  (concat
-   (map #(scale2id % :major) (:major-scale-names @app-state))
-   (map #(scale2id % :minor) (:minor-scale-names @app-state))))
-
 (defn reset-scale-ids-to-show []
   (swap! app-state assoc :scale-ids-to-show
-         (shuffle (all-scale-ids))))
+         (shuffle scales/all-scale-ids)))
 
 (defn highlight-scale? [scale-id]
   (= scale-id (:current-scale-id @app-state)))
 
-(defn make-text [x y angle class [ndx scale]]
+(defn make-text [x y angle class [ndx [scale-id scale-label]]]
   (let [{:keys [x y]} (rotate-pt-around-center
                        {:x x :y y :angle (* ndx angle)})
-        id (scale2id scale class)
-        class (if (highlight-scale? id) (str class " highlight") class)]
-    [:text {:x x :y y :class class :id id :key id} scale]))
+        class (if (highlight-scale? scale-id) (str class " highlight") class)]
+    [:text {:x x :y y :class class :id scale-id :key scale-id} scale-label]))
 
 (defn indexed-names [seq]
   "return a sequence of pairs: [[item-index item]...]"
@@ -72,12 +52,12 @@
 (defn major-scales []
   [:g
    (doall (map (partial make-text 0 -160 30 "major")
-               (indexed-names (:major-scale-names @app-state))))])
+               (indexed-names scales/major-scales)))])
 
 (defn minor-scales []
   [:g
    (doall (map (partial make-text 0 -100 30 "minor")
-               (indexed-names (:minor-scale-names @app-state))))])
+               (indexed-names scales/minor-scales)))])
 
 (defn major-minor-scales []
   [:g {:text-anchor "middle" :dominant-baseline "middle" :fill "black"}

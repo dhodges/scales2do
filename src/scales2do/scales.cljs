@@ -1,40 +1,46 @@
 (ns ^:figwheel-hooks scales2do.scales)
 
-(def fifths
-  "a vector of pairs: [major minor]"
-  [["C"  "A"]
-   ["G"  "E"]
-   ["D"  "B"]
-   ["A"  "F#"]
-   ["E"  "C#"]
-   ["B"  "G#"]
-   ["F#" "E♭"]])
+(def major-scales
+  "a vector of pairs: [element-id label]"
+  [["C-major"       "C"]
+   ["G-major"       "G"]
+   ["D-major"       "D"]
+   ["A-major"       "A"]
+   ["E-major"       "E"]
+   ["B-major"       "B"]
+   ["F-sharp-major" "F#"]
+   ["D-flat-major"  "D♭"]
+   ["A-flat-major"  "A♭"]
+   ["E-flat-major"  "E♭"]
+   ["B-flat-major"  "B♭"]
+   ["F-major"       "F"]])
 
-(def fourths
-  "a vector of pairs: [major minor]"
-  [["C"  "A"]
-   ["F"  "D"]
-   ["B♭" "G"]
-   ["E♭" "C"]
-   ["A♭" "F"]
-   ["D♭" "B♭"]])
+(def minor-scales
+  "a vector of pairs: [element-id label]"
+  [["A-minor"       "A"]
+   ["E-minor"       "E"]
+   ["B-minor"       "B"]
+   ["F-sharp-minor" "F#"]
+   ["C-sharp-minor" "C#"]
+   ["G-sharp-minor" "G#"]
+   ["E-flat-minor"  "E♭"]
+   ["B-flat-minor"  "B♭"]
+   ["F-minor"       "F"]
+   ["C-minor"       "C"]
+   ["G-minor"       "G"]
+   ["D-minor"       "D"]])
 
-(defn major [vec]
-  "given a vector of pairs, return a vector of major scales"
-  (mapv first vec))
+(def major-scale-names
+  (map second major-scales))
 
-(defn minor [vec]
-  "given a vector of pairs, return a vector of minor scales"
-  (mapv second vec))
+(def major-scale-ids
+  (map first major-scales))
 
-(defn fifths-major []
-  (major fifths))
+(def minor-scale-names
+  (map second minor-scales))
 
-(defn fifths-minor []
-  (minor fifths))
+(def minor-scale-ids
+  (map first minor-scales))
 
-(defn fourths-major []
-  (major fourths))
-
-(defn fourths-minor []
-  (minor fourths))
+(def all-scale-ids
+  (concat major-scale-ids minor-scale-ids))
