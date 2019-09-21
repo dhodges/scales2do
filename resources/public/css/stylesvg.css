@@ -44,7 +44,6 @@ svg {
 }
 
 #circle-outer {
-  cursor: pointer;
   stroke-width: 3;
 }
 
@@ -56,6 +55,7 @@ svg {
 #circle-inner {
   cursor: pointer;
   fill: white;
+  opacity: 0.5;
   stroke-width: 4;
   --circle-inner-fill-active: plum;
   --circle-inner-fill-hover: lightsteelblue;
