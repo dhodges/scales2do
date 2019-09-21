@@ -24,7 +24,7 @@
         class (if (highlight-scale? scale-id) (str class " highlight") class)]
     [:text {:x x :y y :class class :id scale-id :key scale-id} scale-label]))
 
-(defn indexed-names [seq]
+(defn indexed-items [seq]
   "return a sequence of pairs: [[item-index item]...]"
   (map-indexed (fn [ndx item] [ndx item]) seq))
 
@@ -52,12 +52,12 @@
 (defn major-scales []
   [:g
    (doall (map (partial make-text 0 -160 30 "major")
-               (indexed-names scales/major-scales)))])
+               (indexed-items scales/major-scales)))])
 
 (defn minor-scales []
   [:g
    (doall (map (partial make-text 0 -100 30 "minor")
-               (indexed-names scales/minor-scales)))])
+               (indexed-items scales/minor-scales)))])
 
 (defn major-minor-scales []
   [:g {:text-anchor "middle" :dominant-baseline "middle" :fill "black"}
