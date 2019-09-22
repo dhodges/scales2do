@@ -18,7 +18,7 @@
 (defn highlight-scale? [scale-id]
   (= scale-id (:current-scale-id @app-state)))
 
-(defn make-text [x y angle class [ndx [scale-id scale-label]]]
+(defn make-scale-element [x y angle class [ndx [scale-id scale-label]]]
   (let [{:keys [x y]} (rotate-pt-around-center
                        {:x x :y y :angle (* ndx angle)})
         class (if (highlight-scale? scale-id) (str class " highlight") class)]
@@ -51,12 +51,12 @@
 
 (defn major-scale-names []
   [:g
-   (doall (map (partial make-text 0 -160 30 "major")
+   (doall (map (partial make-scale-element 0 -160 30 "major")
                (indexed-items scales/major-scales)))])
 
 (defn minor-scale-names []
   [:g
-   (doall (map (partial make-text 0 -100 30 "minor")
+   (doall (map (partial make-scale-element 0 -100 30 "minor")
                (indexed-items scales/minor-scales)))])
 
 (defn all-scale-names []
