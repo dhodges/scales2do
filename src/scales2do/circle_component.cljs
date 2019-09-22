@@ -22,7 +22,7 @@
   (let [{:keys [x y]} (rotate-pt-around-center
                        {:x x :y y :angle (* ndx angle)})
         class (if (highlight-scale? scale-id) (str class " highlight") class)]
-    [:text {:x x :y y :class class :id scale-id :key scale-id} scale-label]))
+    [:text {:x x :y y :class class :key scale-id} scale-label]))
 
 (defn indexed-items [seq]
   "return a sequence of pairs: [[item-index item]...]"
