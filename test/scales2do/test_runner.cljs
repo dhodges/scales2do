@@ -2,6 +2,7 @@
 (ns scales2do.test-runner
   (:require
    ;; require all the namespaces that you want to test
+   [scales2do.behaviour-test]
    [scales2do.circle-component-test]
    [scales2do.core-test]
    [scales2do.geometry-test]

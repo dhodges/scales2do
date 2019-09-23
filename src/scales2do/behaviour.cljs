@@ -1,33 +1,73 @@
 (ns scales2do.behaviour
   (:require
+   [clojure.string :refer [ends-with?]]
    [scales2do.circle-component :refer [app-state reset-scale-ids-to-show]]
+   [scales2do.scales :refer [major-scale-ids minor-scale-ids]]
    [goog.dom :as gdom]))
 
-(defn highlight-next-scale []
-  (let [scale-ids-to-show (:scale-ids-to-show @app-state)
-        scale-id          (first scale-ids-to-show)]
-    (swap! app-state assoc :scale-ids-to-show (rest scale-ids-to-show))
-    (swap! app-state assoc :current-scale-id scale-id)
-    (when-let [cell (.querySelector js/document ".cell.highlight")]
-      (-> cell
-          (.-classList)
-          (.remove "highlight")))
-    (when-let [elem (.getElementById js/document scale-id)]
-      (-> elem
-          (.-classList)
-          (.add "highlight")))))
+(defn highlight-cell [scale-id]
+  (when-let [cell (.querySelector js/document ".cell.highlight")]
+    (-> cell
+        (.-classList)
+        (.remove "highlight")))
+  (when-let [elem (.getElementById js/document scale-id)]
+    (-> elem
+        (.-classList)
+        (.add "highlight"))))
 
-(defn show-next-scale []
-  (if (< 0 (count (:scale-ids-to-show @app-state)))
-    (highlight-next-scale)
-    (when (js/confirm "All scales have been chosen. Start again?")
-      (swap! app-state assoc :current-scale-id nil)
-      (reset-scale-ids-to-show)
-      (highlight-next-scale))))
+(defn highlight-next-scale []
+  (when (= 0 (count (:scale-ids-to-show @app-state)))
+    (reset-scale-ids-to-show))
+
+  (let [scale-id      (first (:scale-ids-to-show @app-state))
+        ids-remaining (rest  (:scale-ids-to-show @app-state))]
+    (swap! app-state assoc :current-scale-id scale-id)
+    (swap! app-state assoc :scale-ids-to-show ids-remaining)
+    (highlight-cell scale-id)))
+
+(defn next-scale-id []
+  (when (= 0 (count (:scale-ids-to-show @app-state)))
+    (reset-scale-ids-to-show))
+  (first (:scale-ids-to-show @app-state)))
+
+(defn recycle-seq [item seq]
+  "generate a new sequence in the same order, beginning with the given item"
+  (let [ndx (.indexOf (to-array seq) item)
+        [head tail] (split-at (inc ndx) seq)]
+    (concat tail head)))
+
+(defn spin-highlights [ids]
+  (.setTimeout js/window (fn []
+                           (if (< 0 (count ids))
+                             (do
+                               (highlight-cell  (first ids))
+                               (spin-highlights (rest ids)))
+                             (highlight-next-scale)))
+               70))
+
+(defn family-scales [scale-id]
+  "to which family does the given scale belong? major or minor?"
+  (if (ends-with? scale-id "major")
+    major-scale-ids
+    minor-scale-ids))
+
+(defn show-spinning-scales []
+  (let [current-id     (:current-scale-id @app-state)
+        current-scales (family-scales current-id)
+        current-ndx    (.indexOf (to-array current-scales) current-id)
+        ids            (recycle-seq current-id current-scales)
+        next-id        (next-scale-id)
+        next-scales    (family-scales next-id)
+        next-scales    (apply concat (reverse (split-at current-ndx next-scales)))
+        next-ndx       (.indexOf (to-array next-scales) next-id)
+        next-scales    (first (split-at next-ndx next-scales))
+        ids            (dedupe (concat ids next-scales))]
+    (swap! app-state assoc :current-scale-id "")
+    (spin-highlights ids)))
 
 (defn setup-behaviours []
   (reset-scale-ids-to-show)
   (.addEventListener (gdom/getElement "circle-inner")
                      "click"
-                     show-next-scale)
-  (show-next-scale))
+                     show-spinning-scales)
+  (highlight-next-scale))
