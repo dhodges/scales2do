@@ -53,14 +53,11 @@ svg {
 }
 
 #circle-middle {
-  fill: none;
   stroke-width: 2;
 }
 
 #circle-inner {
   cursor: pointer;
-  fill: white;
-  opacity: 0.5;
   stroke-width: 4;
   --circle-inner-fill-active: plum;
   --circle-inner-fill-hover: lightsteelblue;
