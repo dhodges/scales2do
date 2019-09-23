@@ -7,7 +7,15 @@
   (let [scale-ids-to-show (:scale-ids-to-show @app-state)
         scale-id          (first scale-ids-to-show)]
     (swap! app-state assoc :scale-ids-to-show (rest scale-ids-to-show))
-    (swap! app-state assoc :current-scale-id scale-id)))
+    (swap! app-state assoc :current-scale-id scale-id)
+    (when-let [cell (.querySelector js/document ".cell.highlight")]
+      (-> cell
+          (.-classList)
+          (.remove "highlight")))
+    (when-let [elem (.getElementById js/document scale-id)]
+      (-> elem
+          (.-classList)
+          (.add "highlight")))))
 
 (defn choose-random-scale []
   (if (< 0 (count (:scale-ids-to-show @app-state)))
