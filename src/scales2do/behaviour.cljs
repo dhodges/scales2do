@@ -17,7 +17,7 @@
           (.-classList)
           (.add "highlight")))))
 
-(defn choose-random-scale []
+(defn show-next-scale []
   (if (< 0 (count (:scale-ids-to-show @app-state)))
     (highlight-next-scale)
     (when (js/confirm "All scales have been chosen. Start again?")
@@ -29,5 +29,5 @@
   (reset-scale-ids-to-show)
   (.addEventListener (gdom/getElement "circle-inner")
                      "click"
-                     choose-random-scale)
-  (choose-random-scale))
+                     show-next-scale)
+  (show-next-scale))
