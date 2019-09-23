@@ -3,7 +3,7 @@
    [scales2do.circle-component :refer [app-state reset-scale-ids-to-show]]
    [goog.dom :as gdom]))
 
-(defn highlight-random-scale []
+(defn highlight-next-scale []
   (let [scale-ids-to-show (:scale-ids-to-show @app-state)
         scale-id          (first scale-ids-to-show)]
     (swap! app-state assoc :scale-ids-to-show (rest scale-ids-to-show))
@@ -19,11 +19,11 @@
 
 (defn choose-random-scale []
   (if (< 0 (count (:scale-ids-to-show @app-state)))
-    (highlight-random-scale)
+    (highlight-next-scale)
     (when (js/confirm "All scales have been chosen. Start again?")
       (swap! app-state assoc :current-scale-id nil)
       (reset-scale-ids-to-show)
-      (highlight-random-scale))))
+      (highlight-next-scale))))
 
 (defn setup-behaviours []
   (reset-scale-ids-to-show)
