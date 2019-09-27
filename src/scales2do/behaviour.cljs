@@ -1,8 +1,7 @@
 (ns scales2do.behaviour
   (:require
-   [clojure.string :refer [ends-with?]]
    [scales2do.circle-component :refer [app-state reset-scale-ids-to-show]]
-   [scales2do.scales :refer [major-scale-ids minor-scale-ids]]
+   [scales2do.scales :refer [family-scales]]
    [goog.dom :as gdom]))
 
 (defn highlight-cell [scale-id]
@@ -44,12 +43,6 @@
                                (spin-highlights (rest ids)))
                              (highlight-next-scale)))
                70))
-
-(defn family-scales [scale-id]
-  "to which family does the given scale belong? major or minor?"
-  (if (ends-with? scale-id "major")
-    major-scale-ids
-    minor-scale-ids))
 
 (defn show-spinning-scales []
   (let [current-id     (:current-scale-id @app-state)

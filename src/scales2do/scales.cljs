@@ -1,4 +1,5 @@
-(ns ^:figwheel-hooks scales2do.scales)
+(ns ^:figwheel-hooks scales2do.scales
+  (:require [clojure.string :as str]))
 
 (def major-scales
   "a vector of pairs: [element-id label]"
@@ -44,3 +45,16 @@
 
 (def all-scale-ids
   (concat major-scale-ids minor-scale-ids))
+
+(defn family? [scale-id]
+  "to which family does the given scale belong?"
+  (if (nil? scale-id)
+    nil
+    (if (str/ends-with? scale-id "major")
+      "major"
+      "minor")))
+
+(defn family-scales [scale-id]
+  (if (= (family? scale-id) "major")
+    major-scale-ids
+    minor-scale-ids))

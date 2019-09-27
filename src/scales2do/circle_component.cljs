@@ -1,6 +1,5 @@
 (ns ^:figwheel-hooks scales2do.circle-component
   (:require
-   [clojure.string :as str]
    [scales2do.geometry :refer [describe-arc rotate-pt-around-center]]
    [scales2do.scales :as scales]
    [reagent.core :as reagent :refer [atom]]))
