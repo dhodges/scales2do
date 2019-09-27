@@ -1,7 +1,12 @@
 ^{:watch-dirs ["test" "src"]
   :css-dirs ["resources/public/css"]
-  :auto-testing true}
+  :auto-testing true
+  }
 {:main scales2do.core
  :optimizations :none
+ :output-dir "resources/public/js"
+ :output-to  "resources/public/js/main.js"
  :pretty-print true
- :source-map true}
+ :source-map true
+ :target-dir "resources"
+ }

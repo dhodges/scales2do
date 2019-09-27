@@ -13,7 +13,8 @@
     (mount comp/scale-names el)
     (setup-behaviours)))
 
-(mount-app-elements)
-
 (defn ^:after-load on-reload []
+  (mount-app-elements))
+
+(defn ^:export init []
   (mount-app-elements))
