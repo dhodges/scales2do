@@ -1,6 +1,6 @@
 # scales2do
 
-![cycle of fifths, cycle of fourths](https://github.com/dhodges/scales2do/raw/master/resources/public/cycles.png)
+![cycle of fifths, cycle of fourths](https://github.com/dhodges/scales2do/raw/master/resources/public/img/cycles.png)
 
 Simple tool to help music practice. Click the inner circle for a random choice of scale.
 
@@ -11,9 +11,9 @@ $ mv core scales2do
 $ cd scales2do
 ```
 
-To launch a cider cljs repl from emacs, run cider-jack-in-cljs (C-c M-J)
+To launch a cider cljs repl from emacs, run cider-jack-in-cljs `(C-c M-J)`
 
-To watch and auto-run tests, open a browser tab to: http://localhost:9500/figwheel-extra-main/auto-testing
+To watch and auto-run tests, open a browser tab: http://localhost:9500/figwheel-extra-main/auto-testing
 
 Other tasks:
 
