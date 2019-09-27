@@ -27,10 +27,18 @@
   "return a sequence of pairs: [[item-index item]...]"
   (map-indexed (fn [ndx item] [ndx item]) seq))
 
+(defn label-class-of [scale-family]
+  "What css class to use for the given scale family, major or minor?
+The family of the current scale will be highlighted."
+  (let [current-id (:current-scale-id @app-state)]
+    (if (= (scales/family? current-id) scale-family)
+      "label current"
+      "label")))
+
 (defn major-minor-labels []
   "curved labels 'Major' and 'Minor', marking the outer and inner circles"
   [:g
-   (let [attrs-major {:x 0 :y -200 :text-anchor "middle" :class "label"}]
+   (let [attrs-major {:x 0 :y -200 :text-anchor "middle" :class (label-class-of "major")}]
      [:g {:transform "scale(0.68)"}
       [:text (merge attrs-major {:transform "rotate(-60)"}) "M"]
       [:text (merge attrs-major {:transform "rotate(-30)"}) "A"]
@@ -38,7 +46,7 @@
       [:text (merge attrs-major {:transform "rotate( 30)"}) "O"]
       [:text (merge attrs-major {:transform "rotate( 60)"}) "R"]])
 
-   (let [attrs-minor {:x 0 :y 200 :text-anchor "middle" :class "label"}]
+   (let [attrs-minor {:x 0 :y 200 :text-anchor "middle" :class (label-class-of "minor")}]
      [:g {:transform "scale(0.63)"}
       [:text (merge attrs-minor {:transform "rotate( 60)"}) "M"]
       [:text (merge attrs-minor {:transform "rotate( 30)"}) "I"]

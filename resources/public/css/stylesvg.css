@@ -1,29 +1,31 @@
 svg {
+  font-size: 15pt;
 }
 
 #scales {
   stroke: deepskyblue;
 }
 
-#scales text {
+text {
   fill: gray;
   stroke: gray;
 }
 
-#scales text.label {
-  fill: gray;
+text.label {
+  fill: darkblue;
   font-family: sans-serif;
   font-size: 72pt;
   font-weight: bold;
   opacity: 0.10;
   stroke: gray;
+  visibility: hidden;
 }
 
-#scale-names {
-  font-size: 15pt;
+text.label.current {
+  visibility: visible;
 }
 
-#scale-names .highlight {
+text.highlight {
   fill: red;
   font-size: 24pt;
   stroke: red;
