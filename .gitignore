@@ -2,6 +2,8 @@ pom.xml
 *jar
 /lib/
 /classes/
+/nginx/*.log
+/nginx/ssl/*
 /out/
 /resources/public/js/
 /target/

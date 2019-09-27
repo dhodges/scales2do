@@ -2,7 +2,11 @@
 
 ![cycle of fifths, cycle of fourths](https://github.com/dhodges/scales2do/raw/master/resources/public/img/cycles.png)
 
-Simple tool to help music practice. Click the inner circle for a random choice of scale.
+Simple tool for music practice. Click the inner circle for a random choice of scale.
+
+Implemented as a progressive web app.
+
+## Development
 
 created with clj-new
 ```
@@ -22,6 +26,21 @@ $ make clean     # clean all compiled files
 $ make dev       # launch a repl from the shell, including auto-compile and load
 $ make test      # run tests from the command line
 $ make prod      # create a production build
+```
+
+## Progressive Web App
+
+Includes a minimal nginx config to serve this PWA app over HTTPS. Obviously requires nginx (and openssl) to be installed.
+
+```
+$ make nginx_start     # ...then open https://localhost:4443
+$ make nginx_stop      # to quit
+```
+
+Normally, Google Chrome will not allow self-signed certificates to be loaded over HTTPS. We can get around this by launching Chrome with a few cmd-line switches:
+
+```
+$ make chrome_insecure # tell chrome to allow self-signed certificates to be served from localhost
 ```
 
 ## License
