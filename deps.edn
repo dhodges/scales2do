@@ -9,4 +9,5 @@
            :dev   {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
            :min   {:main-opts ["-m" "figwheel.main" "-O" "advanced" "-bo" "dev"]}
            :prod  {:main-opts ["-m" "figwheel.main" "-O" "advanced" "-bo" "prod"]}
-           :test  {:main-opts ["-m" "figwheel.main" "-co" "test.cljs.edn" "-m" "scales2do.test-runner"]}}}
+           :test  {:main-opts ["-m" "figwheel.main" "-co" "test.cljs.edn" "-m" "scales2do.test-runner"]}
+           :service_worker {:main-opts ["-m" "cljs.main" "-O" "advanced" "--output-to" "resources/public/service_worker.js" "--compile" "scales2do.service-worker"]}}}

@@ -1,11 +1,21 @@
 clean:
 	rm -rf resources/public/js
+	rm -f resources/public/service_worker.js
 
 dev: clean
 	clojure -A:fig:dev
 
-prod: clean
+service_worker:
+	# figwheel code splitting might be an alternative to running multiple clj aliases:
+	# https://figwheel.org/docs/code_splitting.html
+	# see also:
+	# https://github.com/bhauman/lein-figwheel/wiki/Using-Figwheel-with-Web-Workers
+	clojure -A:service_worker
+
+prod_compile:
 	clojure -A:fig:prod
+
+prod: | clean prod_compile service_worker
 
 test: clean
 	clj -A:fig:test

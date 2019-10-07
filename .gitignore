@@ -5,6 +5,7 @@ pom.xml
 /nginx/*.log
 /nginx/ssl/*
 /out/
+/resources/public/service_worker.js
 /resources/public/js/
 /target/
 .lein-deps-sum

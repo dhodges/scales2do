@@ -1,0 +1,29 @@
+{
+  "name": "scales2do",
+  "short_name": "scales2do",
+  "icons": [{
+    "src": "/img/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }, {
+      "src": "/img/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }, {
+      "src": "/img/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    }, {
+      "src": "/img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }, {
+      "src": "/img/icon-192x192.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }],
+  "background_color": "white",
+  "theme_color": "white",
+  "start_url": "/",
+  "display": "standalone"
+}

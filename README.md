@@ -6,7 +6,7 @@ Simple tool for music practice. Click the inner circle for a random choice of sc
 
 Implemented as a progressive web app.
 
-## Development
+### Development
 
 created with clj-new
 ```
@@ -15,9 +15,8 @@ $ mv core scales2do
 $ cd scales2do
 ```
 
-To launch a cider cljs repl from emacs, run cider-jack-in-cljs `(C-c M-J)`
-
-To watch and auto-run tests, open a browser tab: http://localhost:9500/figwheel-extra-main/auto-testing
+To launch a cider cljs repl from emacs, run cider-jack-in-cljs `(C-c M-J)`.
+Then to watch and auto-run tests, open: http://localhost:9500/figwheel-extra-main/auto-testing
 
 Other tasks:
 
@@ -28,7 +27,7 @@ $ make test      # run tests from the command line
 $ make prod      # create a production build
 ```
 
-## Progressive Web App
+### Progressive Web App
 
 Includes a minimal nginx config to serve this PWA app over HTTPS. Obviously requires nginx (and openssl) to be installed.
 
@@ -37,13 +36,15 @@ $ make nginx_start     # ...then open https://localhost:4443
 $ make nginx_stop      # to quit
 ```
 
-Normally, Google Chrome will not allow self-signed certificates to be loaded over HTTPS. We can get around this by launching Chrome with a few cmd-line switches:
+Normally, Google Chrome will not accept self-signed certificates over HTTPS. We can get around this by launching Chrome with a few cmd-line switches:
 
 ```
-$ make chrome_insecure # tell chrome to allow self-signed certificates to be served from localhost
+$ make chrome_insecure # tell chrome to accept self-signed certificates from localhost
 ```
 
-## License
+### Mea culpa
+
+Some ideas and code respectfully stolen from: https://github.com/gja/pwa-clojure
 
 Copyright © 2019 david hodges
 

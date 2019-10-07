@@ -16,5 +16,17 @@
 (defn ^:after-load on-reload []
   (mount-app-elements))
 
+(defn make-progressive! []
+  (when js/navigator.serviceWorker
+    (js/console.log "[ServiceWorker] registering...")
+    (-> (.register js/navigator.serviceWorker "/service_worker.js")
+        (.then (fn [registration]
+                 (js/console.log "[ServiceWorker] registered")))
+        (.catch (fn [err]
+                  (js/console.error #js{:code (.-code err)
+                                        :name (.-name err)
+                                        :message (.-message err)}))))))
+
 (defn ^:export init []
-  (mount-app-elements))
+  (mount-app-elements)
+  (make-progressive!))
