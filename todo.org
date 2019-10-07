@@ -1,2 +1,2 @@
 * TODO setup SASS
-* TODO visual toggles for major/minor/fifths/fourths
+* TODO nginx: redirect http to https
